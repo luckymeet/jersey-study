@@ -3,6 +3,9 @@ package com.study.config;
 
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.model.Resource;
+
+import java.util.Set;
 
 /**
  * REST 主应用
@@ -18,6 +21,6 @@ public class RestApplication extends ResourceConfig {
 	    
 	    // 注册 MultiPart
 	    register(MultiPartFeature.class);
- 
+
 	}
 }

@@ -26,8 +26,8 @@ public class SpringInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         servletContext.addListener(SpringLifecycleListener.class);
-        HttpServlet servlet = new ServletContainer(new RestApplication());
-        ServletRegistration.Dynamic ser = servletContext.addServlet("ser", servlet);
+        HttpServlet servletContainer = new ServletContainer(new RestApplication());
+        ServletRegistration.Dynamic ser = servletContext.addServlet("servletContainer", servletContainer);
         ser.addMapping("/rest/*");
     }
 }
