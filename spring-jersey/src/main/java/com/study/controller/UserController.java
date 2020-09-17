@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 @Singleton
 public class UserController {
 
-    @Inject
+    @Autowired
     private UserService userService;
 
     @GET

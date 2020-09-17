@@ -2,13 +2,19 @@ package com.study;
 
 import com.study.config.AppConfig;
 import com.study.config.RestApplication;
+import com.study.resolver.AutowiredInjectResolver;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.glassfish.jersey.internal.inject.AbstractBinder;
+import org.glassfish.jersey.internal.inject.InjectionResolver;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.inject.Singleton;
 import javax.servlet.Servlet;
+import javax.ws.rs.core.GenericType;
 import java.util.Set;
 
 public class Application {
@@ -25,6 +31,13 @@ public class Application {
         ac.refresh();
 
         RestApplication resourceConfig = new RestApplication();
+        resourceConfig.register(new AbstractBinder() {
+            @Override
+            protected void configure() {
+                AutowiredInjectResolver autowiredInjectResolver = new AutowiredInjectResolver(ac);
+                bind(autowiredInjectResolver).to(new GenericType<InjectionResolver<Autowired>>() {}).in(Singleton.class);
+            }
+        });
         Servlet servletContainer = new ServletContainer(resourceConfig);
         context.addServlet(new ServletHolder(servletContainer), "/*");
 
