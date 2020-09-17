@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 @Singleton
 public class UserController {
 
-    @Resource
+    @Inject
     private UserService userService;
 
     @GET
